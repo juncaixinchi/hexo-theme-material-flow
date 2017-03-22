@@ -152,10 +152,10 @@ var customSearch;
 	function getHitokoto() {
 		const $hitokoto = $('#hitokoto');
 		if($hitokoto.length === 0) return;
-
+		const url = ROOT + 'hitokoto.json';
 		$.ajax({
 			type: "GET",
-			url: "hitokoto.json",
+			url: url,
 			data: {},
 			dataType: "json",
 			cache:false,
