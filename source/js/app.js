@@ -144,7 +144,9 @@ var customSearch;
 		$.get(url).done(res => {
 			if (res.data.length > 0) {
 				const index = Math.floor(Math.random() * res.data.length);
-				$banner.css('background-image', 'url(' + res.data[index].big + ')');
+				const url = 'https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture';
+				$banner.css('background-image', 'url(' + url + ')');
+				// $banner.css('background-image', 'url(' + res.data[index].big + ')');
 			}
 		})
 	}
@@ -152,7 +154,8 @@ var customSearch;
 	function getHitokoto() {
 		const $hitokoto = $('#hitokoto');
 		if($hitokoto.length === 0) return;
-		const url = ROOT + 'hitokoto.json';
+		// const url = ROOT + 'hitokoto.json';
+		const url = 'https://v1.hitokoto.cn/';
 		$.ajax({
 			type: "GET",
 			url: url,
@@ -160,11 +163,14 @@ var customSearch;
 			dataType: "json",
 			cache:false,
 			success: function(data){
-				let key=Object.keys(data);
-				let num=Math.round(Math.random()*200);
-				let skey=key[num];
-				handlerHitokoto(data[key[num]]);
+				handlerHitokoto(data);
 			},
+			// success: function(data){
+			// 	let key=Object.keys(data);
+			// 	let num=Math.round(Math.random()*200);
+			// 	let skey=key[num];
+			// 	handlerHitokoto(data[key[num]]);
+			// },
 			error: function (msg) {
 				console.log(msg);
 			}
@@ -174,10 +180,18 @@ var customSearch;
 			$hitokoto
 				.css('color','transparent')
 				.text(data.hitokoto)
-			if(data.source) $hitokoto.append('<cite> ——  %s</cite>'.replace('%s',data.source));
+			if(data.from) $hitokoto.append('<cite> ——  %s</cite>'.replace('%s',data.from));
 			else if(data.author) $hitokoto.append('<cite> ——  %s</cite>'.replace('%s',data.author));
 			$hitokoto.css('color','white');
 		}
+		// const handlerHitokoto = (data) => {
+		// 	$hitokoto
+		// 		.css('color','transparent')
+		// 		.text(data.hitokoto)
+		// 	if(data.source) $hitokoto.append('<cite> ——  %s</cite>'.replace('%s',data.source));
+		// 	else if(data.author) $hitokoto.append('<cite> ——  %s</cite>'.replace('%s',data.author));
+		// 	$hitokoto.css('color','white');
+		// }
 	}
 
 	$(function () {
